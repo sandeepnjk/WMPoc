@@ -13,6 +13,7 @@ namespace CoreFramework.Models
         private string className;
         private DLLModel dllThisClassBelongsTo;
         private string httpRouteMapping;
+        private string aliasName;
         private SortedList<string, MethodModel> allMethodsInThisClass = new SortedList<string, MethodModel>();
         private SortedList<string, MethodModel> userSelectedMethodsInThisClass = new SortedList<string, MethodModel>();
 
@@ -30,6 +31,16 @@ namespace CoreFramework.Models
         public SortedList<string, MethodModel> getUserSelectedMethodsInThisClass()
         {
             return userSelectedMethodsInThisClass;
+        }
+
+        public string getAliasName()
+        {
+            return this.aliasName;
+        }
+
+        public void setAliasName(string aliasName)
+        {
+            this.aliasName = aliasName;
         }
 
         public string getClassName()
@@ -59,9 +70,9 @@ namespace CoreFramework.Models
 
         public string generateCodeForControllerClass()
         {
-            string controllerName = this.getClassName();
+            string controllerName = (this.getAliasName() != null) ? this.getAliasName() : this.getClassName().Replace(".", "_");
             StringBuilder tempStringForCode = new StringBuilder();
-            tempStringForCode.AppendLine("public class  " + controllerName.Replace(".", "_") + "Controller : ApiController {");
+            tempStringForCode.AppendLine("public class  " + controllerName + "Controller : ApiController {");
                 
             SortedList<string, MethodModel> methodsInClass = this.getUserSelectedMethodsInThisClass();
             foreach (KeyValuePair<string, MethodModel> methodPair in methodsInClass)

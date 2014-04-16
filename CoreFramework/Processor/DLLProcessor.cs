@@ -12,6 +12,7 @@ using System.Configuration;
 
 using CoreFramework.Models;
 using CoreFramework.Extractors;
+using CoreFramework.Utils;
 
 
 namespace CoreFramework.Processor
@@ -36,7 +37,6 @@ namespace CoreFramework.Processor
                 dLLAtHand = convertDLLToManaged(dLLAtHand);
             }
 
-            Console.WriteLine(dLLAtHand.ToString());
             Console.WriteLine(dLLAtHand.getFullyQualifiedPath());
             Assembly dLLAssembly = Assembly.LoadFile(dLLAtHand.getFullyQualifiedPath());
 
@@ -184,7 +184,7 @@ namespace CoreFramework.Processor
 
         public static DLLModel populateUserSelectedClassesAndMethods(DLLModel dllAtHand)
         {
-            string userAddedClassesAndMethods = ConfigurationManager.AppSettings["methodsToAdd"];
+            string userAddedClassesAndMethods = PropertyUtil.getUserSelectedMethods();
             if (userAddedClassesAndMethods == null)
             {
                 Console.WriteLine("Incorrect configuration, methodsToAdd property not present.");
@@ -194,6 +194,24 @@ namespace CoreFramework.Processor
             for (int i = 0; i < colonSeparatedStrings.Length; i++)
             {
                 string methodAtHandString = colonSeparatedStrings[i];
+                string tmpStringForSplit = new string(methodAtHandString.ToCharArray());
+                string[] controllerAndActionAliases = tmpStringForSplit.Split(PropertyUtil.methodAndAliasSeparator);
+                Boolean aliasesExist = false;
+                string controllerAlias = null;
+                string actionAlias = null;
+
+                if (controllerAndActionAliases.Length > 1)
+                {
+                    //Aliases Exist, time to fetch them
+                    Console.WriteLine("Aliases Exist!!!!");
+                    aliasesExist = true;
+                    string[] individualAliasNames = controllerAndActionAliases[1].Split(PropertyUtil.aliasSeparator);
+                    controllerAlias = individualAliasNames[0];
+                    actionAlias = individualAliasNames[1];
+                    
+                    //Lest we pass the method name along with the aliases
+                    methodAtHandString = controllerAndActionAliases[0];
+                }
                 Dictionary<string, ClassModel> classesInDll = dllAtHand.getAllClassesInThisDll();
                 foreach (KeyValuePair<string, ClassModel> pair in classesInDll)
                 {
@@ -201,8 +219,14 @@ namespace CoreFramework.Processor
                     if (classAtHand.getAllMethodsInThisClass().ContainsKey(methodAtHandString))
                     {
                         int indexOfMethodToBeFetched = classAtHand.getAllMethodsInThisClass().IndexOfKey(methodAtHandString);
+                        MethodModel methodAtHand = classAtHand.getAllMethodsInThisClass().ElementAt(indexOfMethodToBeFetched).Value;
+                        if (aliasesExist)
+                        {
+                            methodAtHand.setAliasName(actionAlias);
+                            classAtHand.setAliasName(controllerAlias);
+                        }
                         classAtHand.getUserSelectedMethodsInThisClass().Add(methodAtHandString,
-                            classAtHand.getAllMethodsInThisClass().ElementAt(indexOfMethodToBeFetched).Value);
+                            methodAtHand);
                         //Now add this class to the DLL's user selected methods, no duplicates
                         if (!dllAtHand.getUserSelectedClassesInThisDll().ContainsKey(classAtHand.getClassName()))
                         {

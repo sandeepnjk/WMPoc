@@ -103,7 +103,7 @@ namespace CoreFramework.Builders
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Issue assigning simple value " + ex.Message);
+                    //Console.WriteLine("Issue assigning simple value " + ex.Message);
                 }
             }
             else

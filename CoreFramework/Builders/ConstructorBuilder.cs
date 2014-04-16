@@ -17,19 +17,12 @@ namespace CoreFramework.Builders
             ConstructorModel constructorModelAtHand = compType.getConstructorModel();
             if (constructorModelAtHand.hasNoArgConstructor())
             {
-                Console.WriteLine("Constructor Info " + 
-                    constructorModelAtHand.hasNoArgConstructor() + " " + 
-                    constructorModelAtHand.getClassOfContructor() +
-                    compType.getActualTypeName());
                 objToBuild = Activator.CreateInstance(compType.getRepresentationalTypeFromAssembly());
             } else {
                 //Logic to handle where no no-arg constructors exist
                 objToBuild = FormatterServices.GetUninitializedObject(
                                          compType.getRepresentationalTypeFromAssembly());
-                //var constructor = compType.getRepresentationalTypeFromAssembly().GetConstructor(Type.EmptyTypes);
-                //constructor.Invoke(uninitializedObject, null);
             }
-            Console.WriteLine(objToBuild);
             return objToBuild;   
         }
     }

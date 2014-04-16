@@ -9,6 +9,7 @@ using System.Configuration;
 using CoreFramework.Processor;
 using CoreFramework.Models;
 using CoreFramework.Generators;
+using CoreFramework.Utils;
 
 namespace CoreFramework.Modes
 {
@@ -20,7 +21,7 @@ namespace CoreFramework.Modes
         public static bool doConfiguration()
         {
             Console.WriteLine("In server mode");
-            string dllPath = ConfigurationManager.AppSettings["dllFilePath"];
+            string dllPath = PropertyUtil.getSelectedDllFile();
             Console.WriteLine("DLL File is : " + dllPath);
             DLLModel dLLAtHand = null;
             if (dllPath != null && dllPath.EndsWith(".dll"))

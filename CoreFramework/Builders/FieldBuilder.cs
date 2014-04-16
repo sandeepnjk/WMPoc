@@ -72,16 +72,13 @@ namespace CoreFramework.Builders
         private T buildComplexField<T>(ComplexTypeModel compType, T objectAtHand,
                                                    ExpandoObject jsonEquivalent, FieldModel fieldAtHand)
         {
-            Console.WriteLine(jsonEquivalent);
-            //object jsonEquivalentObject = jsonEquivalent[fieldAtHand.getFieldName()];
-
             object valueObj = (T)ObjectProcessor.prepCompTypeForInvocation(compType.getDllFileThisTypeBelongsTo()
                              , fieldAtHand.getFieldType() + "", jsonEquivalent);
 
            FieldInfo fieldInfo = objectAtHand.GetType().GetField(fieldAtHand.getFieldName(),
                       BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
-                Console.WriteLine("Setting a complex object of type " + valueObj.GetType()
-                    + " to a complex field " + fieldAtHand.getFieldName() + " of type " + fieldInfo.FieldType);
+                //Console.WriteLine("Setting a complex object of type " + valueObj.GetType()
+                //    + " to a complex field " + fieldAtHand.getFieldName() + " of type " + fieldInfo.FieldType);
            fieldInfo.SetValue(objectAtHand, valueObj);
 
             
@@ -113,15 +110,12 @@ namespace CoreFramework.Builders
                 object fieldValue = jsonEquivalent;
                 try
                 {
-                    //Console.WriteLine("Printing Type of " + fieldAtHand.getFieldName() + " " + 
-                    //    fieldAtHand.getFieldType() + " " + fieldValue.GetType());
                     fieldValue = Convert.ChangeType(fieldValue, fieldAtHand.getFieldType());
                     fieldInfo.SetValue(objectAtHand, fieldValue);
-                    Console.WriteLine("Setting Value " + " " + " " + fieldValue);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Issue assigning simple value " + ex.Message);
+                    //Console.WriteLine("Issue assigning simple value " + ex.Message);
                 }                
             }
             else

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using CoreFramework.Models;
+using CoreFramework.Utils;
 
 namespace CoreFramework.Modes
 {
@@ -13,7 +14,7 @@ namespace CoreFramework.Modes
         public static void doUserInteraction()
         {
             Console.WriteLine("In User input mode");
-            string dllPath = ConfigurationManager.AppSettings["dllFilePath"];
+            string dllPath = PropertyUtil.getSelectedDllFile();
             Console.WriteLine("DLL File is : " + dllPath);
             if (dllPath != null && dllPath.EndsWith(".dll"))
             {
@@ -30,7 +31,6 @@ namespace CoreFramework.Modes
 
         private static void printOutClassesAndMethods(DLLModel dLLModel)
         {
-            Console.WriteLine("Inside Here" + dLLModel.getFullyQualifiedPath());
             Dictionary<string, ClassModel> allClassesInDll =
                 dLLModel.getAllClassesInThisDll();
             foreach(KeyValuePair<string, ClassModel> pair in allClassesInDll) {

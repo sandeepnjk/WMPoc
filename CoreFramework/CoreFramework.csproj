@@ -72,6 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\PathUtil.cs" />
+    <Compile Include="Utils\PropertyUtil.cs" />
     <Compile Include="Utils\TypeUtil.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

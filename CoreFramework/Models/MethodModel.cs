@@ -13,6 +13,7 @@ namespace CoreFramework.Models
         private string shortenedMethodName;
         private ClassModel classThisMethodBelongsTo;
         private string methodName;
+        private string aliasName;
         private SortedList<int, ParameterModel> allParametersInTheMethod = new SortedList<int, ParameterModel>();
         private SortedList<int, ParameterModel> userSelectedParametersInTheMethod = new SortedList<int, ParameterModel>();
         private Type methodReturnType;
@@ -70,6 +71,16 @@ namespace CoreFramework.Models
             this.numberOfMethodParameters = numberOfMethodParameters;
         }
 
+        public string getAliasName()
+        {
+            return this.aliasName;
+        }
+
+        public void setAliasName(string aliasName)
+        {
+            this.aliasName = aliasName;
+        }
+
         public string generateCodeForMethod()
         {
             StringBuilder codeForMethod = new StringBuilder();
@@ -91,7 +102,8 @@ namespace CoreFramework.Models
             }
 
             codeForMethodSignature += "public " + returnTypeCodeToUse + " ";
-            codeForMethodSignature += "Get" + this.getMethodName() + " ";
+            string methodName = (this.getAliasName() != null) ? this.getAliasName() : this.getMethodName();
+            codeForMethodSignature += "Get" + methodName + " ";
             codeForMethodSignature += "(";
             if (this.getNumberOfMethodParameters() != 0)
             {
@@ -203,7 +215,6 @@ namespace CoreFramework.Models
                 }
                 else
                 {
-                    Console.WriteLine("Not Complex");
                     paramListAsString += paramAtHand.getTypeOfParameter() + " " + paramAtHand.getParameterName();
                 }
 
