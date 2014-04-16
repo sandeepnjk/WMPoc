@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8016B0B8-BC74-4239-840C-28A59D6E511C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CoreFramework</RootNamespace>
+    <AssemblyName>CoreFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Builders\BuilderException.cs" />
+    <Compile Include="Builders\ConstructorBuilder.cs" />
+    <Compile Include="Builders\FieldBuilder.cs" />
+    <Compile Include="Builders\iBuilder.cs" />
+    <Compile Include="Builders\PropertyBuilder.cs" />
+    <Compile Include="Builders\StructBuilder.cs" />
+    <Compile Include="Extractors\ConstructorExtractor.cs" />
+    <Compile Include="Extractors\FieldExtractor.cs" />
+    <Compile Include="Extractors\iExtractor.cs" />
+    <Compile Include="Extractors\ObjectExtractor.cs" />
+    <Compile Include="Extractors\PropertyExtractor.cs" />
+    <Compile Include="Extractors\StructExtractor.cs" />
+    <Compile Include="Generators\ControllerGenerator.cs" />
+    <Compile Include="Models\ClassModel.cs" />
+    <Compile Include="Models\ComplexTypeModel.cs" />
+    <Compile Include="Models\ConstructorModel.cs" />
+    <Compile Include="Models\DLLModel.cs" />
+    <Compile Include="Models\FieldModel.cs" />
+    <Compile Include="Models\iModel.cs" />
+    <Compile Include="Models\MethodModel.cs" />
+    <Compile Include="Models\ParameterModel.cs" />
+    <Compile Include="Models\PropertyModel.cs" />
+    <Compile Include="Modes\ServerModeDelegate.cs" />
+    <Compile Include="Modes\UserInteraction.cs" />
+    <Compile Include="Processor\DLLProcessor.cs" />
+    <Compile Include="Processor\ObjectProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\JsonUtil.cs" />
+    <Compile Include="Utils\PathUtil.cs" />
+    <Compile Include="Utils\TypeUtil.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
