@@ -93,6 +93,7 @@ namespace CoreFramework.Models
 
             classWriter.WriteStartElement("class");
             classWriter.WriteElementString("className", this.getClassName().Replace(".", "_"));
+            classWriter.WriteElementString("controllerAlias", (this.getAliasName() != null) ? this.getAliasName() : "Not Set");
 
             SortedList<string, MethodModel> methodsInClass = this.getUserSelectedMethodsInThisClass();
             classWriter.WriteStartElement("methods");

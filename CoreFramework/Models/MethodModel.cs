@@ -238,6 +238,7 @@ namespace CoreFramework.Models
 
             methodWriter.WriteStartElement("method");
             methodWriter.WriteElementString("methodName", this.getMethodName());
+            methodWriter.WriteElementString("actionAlias", (this.getAliasName() != null) ? this.getAliasName() : "Not Set");
             methodWriter.WriteElementString("methodReturnType", this.getMethodReturnType() + "");
             methodWriter.WriteElementString("numberOfParameters", this.getNumberOfMethodParameters() + "");
 

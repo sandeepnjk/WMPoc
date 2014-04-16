@@ -53,18 +53,18 @@ namespace CoreFramework.Models
             XmlWriterSettings writerSettings = new XmlWriterSettings();
             writerSettings.OmitXmlDeclaration = true;
             writerSettings.Indent = true;
-            XmlWriter classWriter = XmlWriter.Create(stream, writerSettings);
-            
-            classWriter.WriteStartElement("field");
-            classWriter.WriteElementString("fieldName", this.fieldName);
-            classWriter.WriteElementString("fieldType", this.fieldType + "");
-            classWriter.WriteEndElement();
+            XmlWriter fieldWriter = XmlWriter.Create(stream, writerSettings);
 
-            classWriter.Flush();
+            fieldWriter.WriteStartElement("field");
+            fieldWriter.WriteElementString("fieldName", this.fieldName);
+            fieldWriter.WriteElementString("fieldType", this.fieldType + "");
+            fieldWriter.WriteEndElement();
+
+            fieldWriter.Flush();
             stream.Position = 0;
 
             XmlReader xmlReader = XmlReader.Create(stream);
-            classWriter.Close();
+            fieldWriter.Close();
             return xmlReader;
         }
 
