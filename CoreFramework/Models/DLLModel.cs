@@ -98,8 +98,10 @@ namespace CoreFramework.Models
             using (XmlWriter writer = XmlWriter.Create(PathUtil.getFolderPathForDll(dllName) + dllName + ".xml"))
             {
                 writer.WriteStartDocument();
+                //writer.WriteProcessingInstruction("<?xml-stylesheet type=\"text/xsl\" href=\"..\\stylesheet.xsl\"?>");
+                writer.WriteProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"..\\stylesheet.xsl\"");
                 writer.WriteStartElement("dll");
-                writer.WriteElementString("dllFileName", dllName + ".xml");
+                writer.WriteElementString("dllFileName", dllName);
                 writer.WriteElementString("fullyQualifiedPath", this.getFullyQualifiedPath());
                 writer.WriteElementString("isManaged", this.isDLLManaged() + "");
                 writer.WriteStartElement("userSelectedClassesInDll");

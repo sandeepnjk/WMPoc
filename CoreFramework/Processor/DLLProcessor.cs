@@ -203,7 +203,6 @@ namespace CoreFramework.Processor
                 if (controllerAndActionAliases.Length > 1)
                 {
                     //Aliases Exist, time to fetch them
-                    Console.WriteLine("Aliases Exist!!!!");
                     aliasesExist = true;
                     string[] individualAliasNames = controllerAndActionAliases[1].Split(PropertyUtil.aliasSeparator);
                     controllerAlias = individualAliasNames[0];
